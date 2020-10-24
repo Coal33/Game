@@ -1,18 +1,15 @@
-﻿
-# pragma once
-# include <Siv3D.hpp> // OpenSiv3D v0.4.2
+#pragma once
+#include <Siv3D.hpp>  // OpenSiv3D v0.4.2
 
 // シーンの名前
-enum class State
-{
+enum class State {
 	Title,
 
 	Game
 };
 
 // ゲームデータ
-struct GameData
-{
+struct GameData {
 	// ハイスコア
 	int32 highScore = 0;
 };

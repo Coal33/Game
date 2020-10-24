@@ -4,8 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:/Users/takas/Documents/OpenSiv3D(0.4.3)/include",
-                "C:/Users/takas/Documents/OpenSiv3D(0.4.3)/include/ThirdParty"
+                "${SIV3D_0_4_3}/include",
+                "${SIV3D_0_4_3}/include/ThirdParty"
             ],
             "defines": [
                 "_DEBUG",

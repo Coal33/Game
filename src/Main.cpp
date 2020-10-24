@@ -8,14 +8,13 @@
 // include と lib をコピーしてください。
 //
 
-# include "Common.hpp"
-# include "Title.hpp"
-# include "Game.hpp"
+#include "Common.hpp"
+#include "Game.hpp"
+#include "Title.hpp"
 
-void Main()
-{
+void Main() {
 	// （Esc キーで終了しないようにする場合はコメントを外す）
-	//System::SetTerminationTriggers(UserAction::CloseButtonClicked);
+	// System::SetTerminationTriggers(UserAction::CloseButtonClicked);
 
 	// タイトルを設定
 	Window::SetTitle(U"ブロックくずし");
@@ -24,24 +23,22 @@ void Main()
 	Scene::SetBackground(ColorF(0.2, 0.8, 0.4));
 
 	// 使用するフォントアセットを登録
-	FontAsset::Register(U"Title", 120, U"example/font/AnnyantRoman/AnnyantRoman.ttf");
+	FontAsset::Register(
+	    U"Title", 120, U"example/font/AnnyantRoman/AnnyantRoman.ttf");
 	FontAsset::Register(U"Menu", 30, Typeface::Regular);
 	FontAsset::Register(U"Score", 36, Typeface::Bold);
 
 	// シーンと遷移時の色を設定
 	MyApp manager;
-	manager
-		.add<Title>(State::Title)
-		.add<Game>(State::Game)
-		.setFadeColor(ColorF(1.0));
+	manager.add<Title>(State::Title)
+	    .add<Game>(State::Game)
+	    .setFadeColor(ColorF(1.0));
 
 	// （ゲームシーンから開始する場合はコメントを外す）
-	//manager.init(State::Game);
+	// manager.init(State::Game);
 
-	while (System::Update())
-	{
-		if (!manager.update())
-		{
+	while(System::Update()) {
+		if(!manager.update()) {
 			break;
 		}
 	}
@@ -57,8 +54,10 @@ void Main()
 // = アドバイス =
 // macOS 10.15 Catalina の Xcode プロジェクトで、
 // ビルドしたプログラムを起動するたびにファイルアクセス許可のダイアログが表示される場合、
-// プロジェクトのフォルダを User/アプリケーション に移動させることで通常は表示されなくなります。
-// 特別なファイルシステム関数の使用や、Web カメラ、マイク使用時のダイアログまでは消せません。
+// プロジェクトのフォルダを User/アプリケーション
+// に移動させることで通常は表示されなくなります。
+// 特別なファイルシステム関数の使用や、Web
+// カメラ、マイク使用時のダイアログまでは消せません。
 //
 //
 // = アドバイス =

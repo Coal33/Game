@@ -1,2 +1,3 @@
 # Game
-OpenSiv3Dによるゲーム開発!
+
+OpenSiv3D によるゲーム開発のテスト

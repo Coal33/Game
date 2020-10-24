@@ -1,83 +1,76 @@
 
-# include "Game.hpp"
+#include "Game.hpp"
 
-Game::Game(const InitData& init)
-	: IScene(init)
-{
-	// ‰¡ (Scene::Width() / blockSize.x) ŒÂAc 5 ŒÂ‚ÌƒuƒƒbƒN‚ğ”z—ñ‚É’Ç‰Á‚·‚é
-	for (auto p : step(Size((Scene::Width() / blockSize.x), 5)))
-	{
+Game::Game(const InitData& init) : IScene(init) {
+	// æ¨ª (Scene::Width() / blockSize.x) å€‹ã€ç¸¦ 5 å€‹ã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹
+	for(auto p : step(Size((Scene::Width() / blockSize.x), 5))) {
 		m_blocks << Rect(p.x * blockSize.x, 60 + p.y * blockSize.y, blockSize);
 	}
 }
 
-void Game::update()
-{
-	// ƒpƒhƒ‹‚ğ‘€ì
+void Game::update() {
+	// ãƒ‘ãƒ‰ãƒ«ã‚’æ“ä½œ
 	m_paddle = Rect(Arg::center(Cursor::Pos().x, 500), 60, 10);
 
-	// ƒ{[ƒ‹‚ğˆÚ“®
+	// ãƒœãƒ¼ãƒ«ã‚’ç§»å‹•
 	m_ball.moveBy(m_ballVelocity * Scene::DeltaTime());
 
-	// ƒuƒƒbƒN‚ğ‡‚Éƒ`ƒFƒbƒN
-	for (auto it = m_blocks.begin(); it != m_blocks.end(); ++it)
-	{
-		// ƒ{[ƒ‹‚ÆƒuƒƒbƒN‚ªŒğ·‚µ‚Ä‚¢‚½‚ç
-		if (it->intersects(m_ball))
-		{
-			// ƒ{[ƒ‹‚ÌŒü‚«‚ğ”½“]‚·‚é
-			(it->bottom().intersects(m_ball) || it->top().intersects(m_ball) ? m_ballVelocity.y : m_ballVelocity.x) *= -1;
+	// ãƒ–ãƒ­ãƒƒã‚¯ã‚’é †ã«ãƒã‚§ãƒƒã‚¯
+	for(auto it = m_blocks.begin(); it != m_blocks.end(); ++it) {
+		// ãƒœãƒ¼ãƒ«ã¨ãƒ–ãƒ­ãƒƒã‚¯ãŒäº¤å·®ã—ã¦ã„ãŸã‚‰
+		if(it->intersects(m_ball)) {
+			// ãƒœãƒ¼ãƒ«ã®å‘ãã‚’åè»¢ã™ã‚‹
+			(it->bottom().intersects(m_ball) || it->top().intersects(m_ball)
+			     ? m_ballVelocity.y
+			     : m_ballVelocity.x) *= -1;
 
-			// ƒuƒƒbƒN‚ğ”z—ñ‚©‚çíœiƒCƒeƒŒ[ƒ^‚ª–³Œø‚É‚È‚é‚Ì‚Å’ˆÓj
+			// ãƒ–ãƒ­ãƒƒã‚¯ã‚’é…åˆ—ã‹ã‚‰å‰Šé™¤ï¼ˆã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ãŒç„¡åŠ¹ã«ãªã‚‹ã®ã§æ³¨æ„ï¼‰
 			m_blocks.erase(it);
 
-			// ƒXƒRƒA‚ğ‰ÁZ
+			// ã‚¹ã‚³ã‚¢ã‚’åŠ ç®—
 			++m_score;
 
-			// ‚±‚êˆÈãƒ`ƒFƒbƒN‚µ‚È‚¢  
+			// ã“ã‚Œä»¥ä¸Šãƒã‚§ãƒƒã‚¯ã—ãªã„
 			break;
 		}
 	}
 
-	// “Vˆä‚É‚Ô‚Â‚©‚Á‚½‚ç‚Í‚Ë•Ô‚é
-	if (m_ball.y < 0 && m_ballVelocity.y < 0)
-	{
+	// å¤©äº•ã«ã¶ã¤ã‹ã£ãŸã‚‰ã¯ã­è¿”ã‚‹
+	if(m_ball.y < 0 && m_ballVelocity.y < 0) {
 		m_ballVelocity.y *= -1;
 	}
 
-	if (m_ball.y > Scene::Height())
-	{
+	if(m_ball.y > Scene::Height()) {
 		changeScene(State::Title);
 		getData().highScore = Max(getData().highScore, m_score);
 	}
 
-	// ¶‰E‚Ì•Ç‚É‚Ô‚Â‚©‚Á‚½‚ç‚Í‚Ë•Ô‚é
-	if ((m_ball.x < 0 && m_ballVelocity.x < 0) || (Scene::Width() < m_ball.x && m_ballVelocity.x > 0))
-	{
+	// å·¦å³ã®å£ã«ã¶ã¤ã‹ã£ãŸã‚‰ã¯ã­è¿”ã‚‹
+	if((m_ball.x < 0 && m_ballVelocity.x < 0)
+	   || (Scene::Width() < m_ball.x && m_ballVelocity.x > 0)) {
 		m_ballVelocity.x *= -1;
 	}
 
-	// ƒpƒhƒ‹‚É‚ ‚½‚Á‚½‚ç‚Í‚Ë•Ô‚é
-	if (m_ballVelocity.y > 0 && m_paddle.intersects(m_ball))
-	{
-		// ƒpƒhƒ‹‚Ì’†S‚©‚ç‚Ì‹——£‚É‰‚¶‚Ä‚Í‚Ë•Ô‚éŒü‚«‚ğ•Ï‚¦‚é
-		m_ballVelocity = Vec2((m_ball.x - m_paddle.center().x) * 10, -m_ballVelocity.y).setLength(speed);
+	// ãƒ‘ãƒ‰ãƒ«ã«ã‚ãŸã£ãŸã‚‰ã¯ã­è¿”ã‚‹
+	if(m_ballVelocity.y > 0 && m_paddle.intersects(m_ball)) {
+		// ãƒ‘ãƒ‰ãƒ«ã®ä¸­å¿ƒã‹ã‚‰ã®è·é›¢ã«å¿œã˜ã¦ã¯ã­è¿”ã‚‹å‘ãã‚’å¤‰ãˆã‚‹
+		m_ballVelocity =
+		    Vec2((m_ball.x - m_paddle.center().x) * 10, -m_ballVelocity.y)
+		        .setLength(speed);
 	}
 }
 
-void Game::draw() const
-{
+void Game::draw() const {
 	FontAsset(U"Score")(m_score).drawAt(Scene::Center().x, 30);
 
-	// ‚·‚×‚Ä‚ÌƒuƒƒbƒN‚ğ•`‰æ‚·‚é
-	for (const auto& block : m_blocks)
-	{
+	// ã™ã¹ã¦ã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’æç”»ã™ã‚‹
+	for(const auto& block : m_blocks) {
 		block.stretched(-1).draw(HSV(block.y - 40));
 	}
 
-	// ƒ{[ƒ‹‚ğ•`‚­
+	// ãƒœãƒ¼ãƒ«ã‚’æã
 	m_ball.draw();
 
-	// ƒpƒhƒ‹‚ğ•`‚­
+	// ãƒ‘ãƒ‰ãƒ«ã‚’æã
 	m_paddle.draw();
 }

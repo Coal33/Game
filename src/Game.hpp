@@ -1,12 +1,9 @@
-﻿
-# pragma once
-# include "Common.hpp"
+#pragma once
+#include "Common.hpp"
 
 // ゲームシーン
-class Game : public MyApp::Scene
-{
-private:
-
+class Game : public MyApp::Scene {
+  private:
 	// ブロックのサイズ
 	static constexpr Size blockSize = Size(40, 20);
 
@@ -28,8 +25,7 @@ private:
 	// スコア
 	int32 m_score = 0;
 
-public:
-
+  public:
 	Game(const InitData& init);
 
 	void update() override;
