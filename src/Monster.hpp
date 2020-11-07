@@ -13,7 +13,8 @@ class Monster {
     int experience;                         //経験値
     String feature;                         //特性
     String skill[4];                        //スキル
-
+    String speciesName;                     //種族名
+    String individualName;                  //個体名
    public:
     Monster();
     ~Monster();
