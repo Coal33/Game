@@ -234,9 +234,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Asset.cpp" />
+    <ClCompile Include="src\GameScene.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Monster.cpp" />
+    <ClCompile Include="src\SettingScene.cpp" />
+    <ClCompile Include="src\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Define.hpp" />
+    <ClInclude Include="src\GameScene.hpp" />
+    <ClInclude Include="src\Monster.hpp" />
+    <ClInclude Include="src\SettingScene.hpp" />
+    <ClInclude Include="src\TitleScene.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
