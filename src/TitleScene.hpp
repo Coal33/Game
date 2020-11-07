@@ -1,5 +1,6 @@
 #include <Siv3D.hpp>
-using SceneMgr = SceneManager<String>;
+
+#include "Define.hpp"
 
 class TitleScene : public SceneMgr::Scene {
    private:
