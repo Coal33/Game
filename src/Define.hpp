@@ -3,7 +3,7 @@
 
 using ll = long long;
 
-struct AbilityValue {
+struct AbilityValues {
 	int hitPoint;      //体力
 	int attack;        //攻撃力
 	int defence;       //防御力

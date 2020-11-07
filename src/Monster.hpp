@@ -4,17 +4,17 @@
 #include "Define.hpp"
 
 class Monster {
-  private:
-	AbilityValue currentAvilityValue;     //能力現在値
-	AbilityValue absoluteAvilityValue;    //能力絶対値
-	AbilityValue experienceAvilityValue;  //能力経験値
-	AbilityValue eigenvalueAvirityValue;  //能力固有値
-	int level;                            //レベル
-	int experience;                       //経験値
-	String feature;                       //特性
-	String[4] skill;                      //スキル
+   private:
+    AbilityValues currentAvilityValues;     //能力現在値
+    AbilityValues absoluteAvilityValues;    //能力絶対値
+    AbilityValues experienceAvilityValues;  //能力経験値
+    AbilityValues eigenvalueAvirityValues;  //能力固有値
+    int level;                              //レベル
+    int experience;                         //経験値
+    String feature;                         //特性
+    String skill[4];                        //スキル
 
-  public:
-	Monster();
-	~Monster();
+   public:
+    Monster();
+    ~Monster();
 };
